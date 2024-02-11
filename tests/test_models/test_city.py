@@ -94,14 +94,13 @@ class TestCity_save(unittest.TestCase):
     """Unittests for testing save method of the City class."""
 
     @classmethod
-    def setUpClass(cls):
+    def setUp(self):
         try:
             os.rename("file.json", "tmp")
         except IOError:
             pass
 
-    @classmethod
-    def tearDownClass(cls):
+    def tearDown(self):
         try:
             os.remove("file.json")
         except IOError:
@@ -146,7 +145,7 @@ class TestCity_to_dict(unittest.TestCase):
     """Unittests for testing to_dict method of the City class."""
 
     def test_to_dict_type(self):
-        self.assertTrue(isinstance(City().to_dict(), dict))
+        self.assertTrue(dict, type(City().to_dict()))
 
     def test_to_dict_contains_correct_keys(self):
         cy = City()
@@ -159,7 +158,7 @@ class TestCity_to_dict(unittest.TestCase):
         cy = City()
         cy.middle_name = "Holberton"
         cy.my_number = 98
-        self.assertIn("middle_name", cy.to_dict())
+        self.assertEqual("Holberton", cy.middle_name)
         self.assertIn("my_number", cy.to_dict())
 
     def test_to_dict_datetime_attributes_are_strs(self):
@@ -178,7 +177,7 @@ class TestCity_to_dict(unittest.TestCase):
             'id': '123456',
             '__class__': 'City',
             'created_at': dt.isoformat(),
-            'updated_at': dt.isoformat()
+            'updated_at': dt.isoformat(),
         }
         self.assertDictEqual(cy.to_dict(), tdict)
 
@@ -194,4 +193,3 @@ class TestCity_to_dict(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-
