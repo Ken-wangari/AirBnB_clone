@@ -2,9 +2,9 @@
 """Defines unittests for models/state.py.
 
 Unittest classes:
-    TestState_instantiation
-    TestState_save
-    TestState_to_dict
+    TestStateInstantiation
+    TestStateSave
+    TestStateToDict
 """
 import os
 import models
@@ -14,7 +14,7 @@ from time import sleep
 from models.state import State
 
 
-class TestState_instantiation(unittest.TestCase):
+class TestStateInstantiation(unittest.TestCase):
     """Unittests for testing instantiation of the State class."""
 
     def test_no_args_instantiates(self):
@@ -84,17 +84,18 @@ class TestState_instantiation(unittest.TestCase):
             State(id=None, created_at=None, updated_at=None)
 
 
-class TestState_save(unittest.TestCase):
+class TestStateSave(unittest.TestCase):
     """Unittests for testing save method of the State class."""
 
     @classmethod
-    def setUp(self):
+    def setUpClass(cls):
         try:
             os.rename("file.json", "tmp")
         except IOError:
             pass
 
-    def tearDown(self):
+    @classmethod
+    def tearDownClass(cls):
         try:
             os.remove("file.json")
         except IOError:
@@ -135,7 +136,7 @@ class TestState_save(unittest.TestCase):
             self.assertIn(stid, f.read())
 
 
-class TestState_to_dict(unittest.TestCase):
+class TestStateToDict(unittest.TestCase):
     """Unittests for testing to_dict method of the State class."""
 
     def test_to_dict_type(self):
@@ -187,3 +188,4 @@ class TestState_to_dict(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
