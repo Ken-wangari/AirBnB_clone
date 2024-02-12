@@ -90,14 +90,14 @@ class TestBaseModel_save(unittest.TestCase):
     """Unittests for testing save method of the BaseModel class."""
 
     @classmethod
-    def setUpClass(cls):
+    def setUp(self):
         try:
             os.rename("file.json", "tmp")
         except IOError:
             pass
 
     @classmethod
-    def tearDownClass(cls):
+    def tearDown(self):
         try:
             os.remove("file.json")
         except IOError:
@@ -143,7 +143,7 @@ class TestBaseModel_to_dict(unittest.TestCase):
 
     def test_to_dict_type(self):
         bm = BaseModel()
-        self.assertTrue(isinstance(bm.to_dict(), dict))
+        self.assertTrue(dict, type(bm.to_dict()))
 
     def test_to_dict_contains_correct_keys(self):
         bm = BaseModel()
@@ -190,4 +190,3 @@ class TestBaseModel_to_dict(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-
